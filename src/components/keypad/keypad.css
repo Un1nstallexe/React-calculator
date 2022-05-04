@@ -1,0 +1,52 @@
+.bt {
+    font-family: 'Rubik', sans-serif;
+    width: 64px;
+    height: 50px;
+    position: relative;
+    box-sizing: border-box;
+    border:1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 6px;
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right:5px;
+    background: #f5f3e0 ;
+    font-weight: 500;
+    font-size: 150%;
+    box-shadow: inset 1px -30px 62px -59px #1a1a19 ,0px 1px 5px 1px rgb(163, 163, 156);
+    outline:solid 3px #afada2;
+    text-shadow: #dd7a38;
+    text-shadow: 0 2px rgba(0, 0, 0, 0.1);
+
+}
+.bt:active {
+    box-shadow: inset 1px 30px 62px -59px #1a1a19 ;
+}
+.bt-functional {
+    background-color:#ceccbe;
+    color:rgb(73, 21, 0);
+}
+.bt-clear {
+    background-color:#4e4e48;
+    color:white;
+    border-color:#1a1a19;
+}
+.bt-equal {
+    background-color:#dd7a38;
+    border-color: #914f24;
+    width:138px;
+    color:white;
+}
+.bt-plus {
+    position: absolute;
+    height:120px;
+    background-color:#ceccbe;
+    color:rgb(73, 21, 0);
+    z-index: 2;
+}
+.bt::after {
+    box-shadow: 0px 1px 33px 11px rgba(26,26,25,1);
+}
+.keypad {
+    margin: auto;
+    padding: 0;
+}
