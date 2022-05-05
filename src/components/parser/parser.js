@@ -1,8 +1,12 @@
 // функция для рассчета математических выражений, записанных в строках
 
 const mathParser = (str)=>{
-    let argumentArr = str.replace(/\s/g, '').match(/[+\-*/)(√]|([0-9.eπ\s]+)/g) || []; //из данной строки создаёт массив, пример: "(123 - 3487)/2" переделается в ['(', '123', '-', '3487', ')', '/', '2']
-        console.log("массивчик в начале: "+argumentArr);
+    let argumentArr = str.replace(/\s/g, '').match(/[+\-*/)(e√]|([0-9.π\s]+)/g) || []; //из данной строки создаёт массив, пример: "(123 - 3487)/2" переделается в ['(', '123', '-', '3487', ')', '/', '2']
+    
+    while(argumentArr.includes('e')) {
+        const i = argumentArr.indexOf('e');
+        argumentArr.splice( i-1 , 4 , argumentArr[i-1]+argumentArr[i]+argumentArr[i+1]+argumentArr[i+2])
+    }
     const parseMathExp = (argumentsArr)=>{
         
         const countFragment= (arr)=>{ //функция, которая может считать фрагмент выражения, данного в виде массива из прошлого комментария, если во фрагмене нет скобок, н.п. ['1','-','33','/','45'] 
