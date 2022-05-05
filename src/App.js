@@ -18,14 +18,31 @@ class App extends Component {
     }));
     console.log(this.state.text)
   }
-  filterMistakes = (string)=>{
-    const arr = string.replace(/\s/g, '')
+
+  filterMistakes = (str)=>{
+    const arr = str.replace(/\s/g, '')
     .match(/[+\-*/)(√]|([0-9.eπ\s]+)/g) || [];
     console.log(arr);
     if (arr[arr.length-1] && (arr[arr.length-1].match(/\./g) || []).length>1) {
       this.clear();
+    } 
+    if (arr[arr.length-1] && (arr[arr.length-1].match(/e/g) || []).length>1) {
+      this.clear();
     }
+    if ( (str[str.length-1]
+      .match(/[+\-*/)(√]|([0-9.eπ\s]+)/g) || [])
+      .length===0) {
+        this.clear();
+      }    
+    if (!(+arr[arr.length-1]) && !(+arr[arr.length-2])
+     && (arr[arr.length-1]!=='(' 
+     && arr[arr.length-1]!==')')) {
+       this.setState(({text})=>({
+         text:text.slice(0,-2)+text[text.length-1]
+       }));
+    } 
   }
+
   onScreenChange = (text) => {
     console.log(text)
     if (text.includes("=")) {
