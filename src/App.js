@@ -35,10 +35,14 @@ class App extends Component {
         this.clear();
       }    
     if (!(+arr[arr.length-1]) && !(+arr[arr.length-2])
-     && (arr[arr.length-1]!=='(' 
+     && arr[arr.length-1]!=='(' 
      && arr[arr.length-1]!==')'
      && arr[arr.length-1]!=='√'
-     && arr[arr.length-1]!=='π')) {
+     && arr[arr.length-2]!=='π'
+     && arr[arr.length-2]!=='(' 
+     && arr[arr.length-2]!==')'
+     && arr[arr.length-2]!=='√'
+     && arr[arr.length-2]!=='π') {
        this.setState(({text})=>({
          text:text.slice(0,-2)+text[text.length-1]
        }));
