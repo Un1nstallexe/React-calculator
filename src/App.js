@@ -20,8 +20,8 @@ class App extends Component {
   }
 
   filterMistakes = (str)=>{
-    const arr = str.replace(/\s/g, '')
-    .match(/[+\-*/)(√]|([0-9.eπ\s]+)/g) || [];
+    let arr = str.replace(/\s/g, '')
+    .match(/[+\-*/)(√π]|([0-9.e\s]+)/g) || [];
     console.log(arr);
     if (arr[arr.length-1] && (arr[arr.length-1].match(/\./g) || []).length>1) {
       this.clear();
@@ -30,15 +30,18 @@ class App extends Component {
       this.clear();
     }
     if ( (str[str.length-1]
-      .match(/[+\-*/)(√]|([0-9.eπ\s]+)/g) || [])
+      .match(/[+\-*/)(√π]|([0-9.e\s]+)/g) || [])
       .length===0) {
         this.clear();
-      }    
+      }
+      str = this.state.text;
+      arr = str.replace(/\s/g, '')
+  .match(/[+\-*/)(√π]|([0-9.e\s]+)/g) || [];    
     if (!(+arr[arr.length-1]) && !(+arr[arr.length-2])
      && arr[arr.length-1]!=='(' 
      && arr[arr.length-1]!==')'
      && arr[arr.length-1]!=='√'
-     && arr[arr.length-2]!=='π'
+     && arr[arr.length-1]!=='π'
      && arr[arr.length-2]!=='(' 
      && arr[arr.length-2]!==')'
      && arr[arr.length-2]!=='√'
@@ -47,6 +50,35 @@ class App extends Component {
          text:text.slice(0,-2)+text[text.length-1]
        }));
     } 
+    // if ( arr[arr.length-1]===')' &&str.match( /\(/g ).length < str
+    //   .match( /\)/g ).length ) {
+    //     this.clear();
+    //     str = this.state.text;
+    //     arr = str.replace(/\s/g, '')
+    // .match(/[+\-*/)(√π]|([0-9.e\s]+)/g) || [];
+    //   }
+    
+    //  if ((arr[arr.length-1]==='π'
+    //  || arr[arr.length-1]===')' 
+    //  || +arr[arr.length-1]) 
+    //  &&( arr[arr.length-2]==='('
+    //  || arr[arr.length-2]==='√'
+    //  || +arr[arr.length-2]
+    //  || arr[arr.length-2]==='π')) {
+    //   this.setState(({text})=>({
+    //     text:text.slice(0,-1)+"*"+text[text.length-1]
+    //   }));
+    //  }
+    // if ( (!(+arr[arr.length-1]) 
+    // || arr[arr.length-1]===")") 
+    // && (+arr[arr.length-2] 
+    //   || arr[arr.length-2]===')' 
+    // || arr[arr.length-2]==='π')) {
+    //   this.setState(({text})=>({
+    //     text:text.slice(0,-1)+"*"+ text[text.length-1]
+    //   }))
+    // }
+    
   }
 
   onScreenChange = (text) => {

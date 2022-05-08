@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# React Calculator: Инструкция
+
+Калькулятор. Особенности: нельзя писать н.п. "√√3", правильно "√(√3)"
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

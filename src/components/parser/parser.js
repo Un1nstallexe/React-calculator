@@ -6,23 +6,26 @@ const mathParser = (string)=>{
         .match( /\)/g ) || []).length) {
             str = str+')';
         }
-    let argumentArr = str.replace(/\s/g, '').match(/[+\-*/)(e√]|([0-9.π\s]+)/g) || []; //из данной строки создаёт массив, пример: "(123 - 3487)/2" переделается в ['(', '123', '-', '3487', ')', '/', '2']
+    let argumentArr = str.replace(/\s/g, '').match(/[+\-*/)(eπ√]|([0-9.\s]+)/g) || []; //из данной строки создаёт массив, пример: "(123 - 3487)/2" переделается в ['(', '123', '-', '3487', ')', '/', '2']
     
     while(argumentArr.includes('e')) {
         const i = argumentArr.indexOf('e');
         argumentArr.splice( i-1 , 4 , argumentArr[i-1]+argumentArr[i]+argumentArr[i+1]+argumentArr[i+2])
     }
-
+    console.log("массив в начале: "+argumentArr)
 
     const parseMathExp = (argumentsArr)=>{
         
         const countFragment= (arr)=>{ //функция, которая может считать фрагмент выражения, данного в виде массива из прошлого комментария, если во фрагмене нет скобок, н.п. ['1','-','33','/','45'] 
-            while (arr.includes('√')) {
-                arr.splice(arr.indexOf('√'),2, Math.sqrt(arr[arr.indexOf('√')+1]));
-                console.log("Корень: "+arr);
+            if (arr.length===0 || !arr) {
+                arr = ["0"];
             }
             while (arr.includes('π')) {
                 arr.splice(arr.indexOf('π'),1, Math.PI);
+                console.log("Корень: "+arr);
+            }
+            while (arr.includes('√')) {
+                arr.splice(arr.indexOf('√'),2, Math.sqrt(arr[arr.indexOf('√')+1]));
                 console.log("Корень: "+arr);
             }
             while (arr.includes('*') || arr.includes('/')) {
@@ -85,7 +88,8 @@ const mathParser = (string)=>{
             }
             
             countFragment(fragment); // с помощью функции выражение, что было в скобках, заменяется одним числом, получившимся в результате рассчёта
-            argumentsArr.splice(opening, closing-opening+1, fragment[0]);
+            argumentsArr.splice(opening, closing-opening+1,
+                 fragment[0]);
             console.log("arguments: "+argumentsArr);
         }
         console.log('скобок нет');
@@ -98,3 +102,4 @@ const mathParser = (string)=>{
 export default mathParser;
 // копипаста для знаков:   √   π
 
+console.log(['(', ')'].splice(1,0))
