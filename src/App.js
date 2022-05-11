@@ -25,60 +25,74 @@ class App extends Component {
     console.log(arr);
     if (arr[arr.length-1] && (arr[arr.length-1].match(/\./g) || []).length>1) {
       this.clear();
+      str = str.slice(0,-1);
     } 
     if (arr[arr.length-1] && (arr[arr.length-1].match(/e/g) || []).length>1) {
       this.clear();
+      str = str.slice(0,-1);
     }
     if ( (str[str.length-1]
       .match(/[+\-*/)(√π]|([0-9.e\s]+)/g) || [])
       .length===0) {
         this.clear();
+        str = str.slice(0,-1);
       }
-      str = this.state.text;
       arr = str.replace(/\s/g, '')
   .match(/[+\-*/)(√π]|([0-9.e\s]+)/g) || [];    
-    if (!(+arr[arr.length-1]) && !(+arr[arr.length-2])
-     && arr[arr.length-1]!=='(' 
-     && arr[arr.length-1]!==')'
-     && arr[arr.length-1]!=='√'
-     && arr[arr.length-1]!=='π'
-     && arr[arr.length-2]!=='(' 
-     && arr[arr.length-2]!==')'
-     && arr[arr.length-2]!=='√'
-     && arr[arr.length-2]!=='π') {
-       this.setState(({text})=>({
-         text:text.slice(0,-2)+text[text.length-1]
-       }));
-    } 
-    // if ( arr[arr.length-1]===')' &&str.match( /\(/g ).length < str
-    //   .match( /\)/g ).length ) {
-    //     this.clear();
-    //     str = this.state.text;
-    //     arr = str.replace(/\s/g, '')
-    // .match(/[+\-*/)(√π]|([0-9.e\s]+)/g) || [];
-    //   }
+    // if (!(+arr[arr.length-1]) && !(+arr[arr.length-2])
+    //  && arr[arr.length-1]!=='(' 
+    //  && arr[arr.length-1]!==')'
+    //  && arr[arr.length-1]!=='√'
+    //  && arr[arr.length-1]!=='π'
+    //  && arr[arr.length-2]!=='(' 
+    //  && arr[arr.length-2]!==')'
+    //  && arr[arr.length-2]!=='√'
+    //  && arr[arr.length-2]!=='π') {
+    //    this.setState(({text})=>({
+    //      text:text.slice(0,-2)+text[text.length-1]
+    //    }));
+    // } 
+    if ((arr[arr.length-1]==='√' ||
+        arr[arr.length-1]==='+' ||
+        arr[arr.length-1]==='-' ||
+        arr[arr.length-1]==='*' ||
+        arr[arr.length-1]==='/' ) && (
+        arr[arr.length-2]==='√' ||
+        arr[arr.length-2]==='+' ||
+        arr[arr.length-2]==='-' ||
+        arr[arr.length-2]==='*' ||
+        arr[arr.length-2]==='/' )) {
+          this.setState(({text})=>({
+            text:text.slice(0,-2)+text[text.length-1]
+          }));
+        }
+
+    if ( arr[arr.length-1]===')' && str.match( /\(/g ).length < str
+      .match( /\)/g ).length ) {
+        this.clear();
+        str = this.state.text;
+        arr = str.replace(/\s/g, '')
+        .match(/[+\-*/)(√π]|([0-9.e\s]+)/g) || [];
+      }
     
-    //  if ((arr[arr.length-1]==='π'
-    //  || arr[arr.length-1]===')' 
-    //  || +arr[arr.length-1]) 
-    //  &&( arr[arr.length-2]==='('
-    //  || arr[arr.length-2]==='√'
-    //  || +arr[arr.length-2]
-    //  || arr[arr.length-2]==='π')) {
-    //   this.setState(({text})=>({
-    //     text:text.slice(0,-1)+"*"+text[text.length-1]
-    //   }));
-    //  }
-    // if ( (!(+arr[arr.length-1]) 
-    // || arr[arr.length-1]===")") 
-    // && (+arr[arr.length-2] 
-    //   || arr[arr.length-2]===')' 
-    // || arr[arr.length-2]==='π')) {
-    //   this.setState(({text})=>({
-    //     text:text.slice(0,-1)+"*"+ text[text.length-1]
-    //   }))
-    // }
-    
+     if ((((!isNaN(+arr[arr.length-1]))
+      || arr[arr.length-1]==='π'
+      || arr[arr.length-1]==='(') && ( 
+        arr[arr.length-2]==="π"
+        || arr[arr.length-2]===")" 
+        )) || (
+          ((!isNaN(+arr[arr.length-2]))
+           || arr[arr.length-2]==='π'
+           || arr[arr.length-2]===')') && ( 
+          arr[arr.length-1]==="π" 
+          || arr[arr.length-1]==="(" 
+          || arr[arr.length-1]==="√" 
+          ))) {
+      this.setState(({text})=>({
+        text:text.slice(0,-1)+"*"+text[text.length-1]
+      }));
+      console.log('filtered')
+     }    
   }
 
   onScreenChange = (text) => {

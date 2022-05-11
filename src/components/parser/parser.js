@@ -17,10 +17,11 @@ const mathParser = (string)=>{
     const parseMathExp = (argumentsArr)=>{
         
         const countFragment= (arr)=>{ //функция, которая может считать фрагмент выражения, данного в виде массива из прошлого комментария, если во фрагмене нет скобок, н.п. ['1','-','33','/','45'] 
+            console.log('arr.length: '+ arr.length)
             if (arr.length===0 || !arr) {
                 arr = ["0"];
             }
-            while (arr.includes('π')) {
+            else {while (arr.includes('π')) {
                 arr.splice(arr.indexOf('π'),1, Math.PI);
                 console.log("Корень: "+arr);
             }
@@ -53,7 +54,9 @@ const mathParser = (string)=>{
                 argumentsArr.splice( 0, 3, ( +argumentsArr[0] + ( argumentsArr[1]==='+'? +argumentsArr[2] : -(+argumentsArr[2]) ) ) );
                 console.log("finalFragment: "+argumentsArr);
             }
-            
+            }
+            console.log("bebra: " +arr[0])
+            arr = arr[0]
         }
         while (argumentsArr.includes('(')) { // цикл работает, пока не упростит выражение до выражения без скобок
             let opening;
@@ -78,7 +81,6 @@ const mathParser = (string)=>{
                         i--;
                     }
                 }
-                console.log("N"+k+"I: "+i);
             });
             
             let fragment = argumentsArr.slice(opening+1, closing); // здесь из массива вырезается кусочек, заключенный в скбки первого разряда (т.е скобки в скобках это скобки второго разряда, скобки в скбках в скобках - третьего)
@@ -89,7 +91,7 @@ const mathParser = (string)=>{
             
             countFragment(fragment); // с помощью функции выражение, что было в скобках, заменяется одним числом, получившимся в результате рассчёта
             argumentsArr.splice(opening, closing-opening+1,
-                 fragment[0]);
+                 fragment);
             console.log("arguments: "+argumentsArr);
         }
         console.log('скобок нет');
